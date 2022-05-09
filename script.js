@@ -24,15 +24,15 @@ const words = [
 // variables
 var time = 10;
 var score = 0;
-var palabraUsuario = document.getElementById("text").innerHTML;
-
 
 // función que selecciona la palabra random y retorna una.
 function palabraRandom() {
-   var randomWords = words[Math.floor(Math.random() * words.length)];
-   return randomWords;
-}
-var resultadoPR = palabraRandom();
+   for (var i = 0; i < words.length; i++) {
+     var indice = Math.floor(Math.random(words.length) * words.length);
+     return words[indice];
+   }
+ }
+ var resultadoPR = palabraRandom();
 
 //función que agrega una palabra random al h1
 function addToDom() {
@@ -41,29 +41,23 @@ function addToDom() {
 }
 var addToDomPalabra = addToDom();
 
-
 //función que compara la palabra random con la escrita por usuario
 function comparador() {
-   if (palabraUsuario === resultadoPR) {
+   var palabraUsuario = document.getElementById("text").value;
+   if (palabraUsuario == resultadoPR) {
       
       score += 1;
       time = time + 3;
       
-      document.getElementById("text").value =("");
       document.getElementById("timeSpan").innerHTML = time + " s";
       document.getElementById("score").innerHTML = score;
       resultadoPR = palabraRandom();
+      document.getElementById("text").value =("");
       
-      
-      function addToDomAgain() {
-         var agregarPalabra = document.getElementById("palabraRandom").innerHTML = resultadoPR;
-         return agregarPalabra;
-      }
-      addToDomAgain();
+      addToDom();
       
    }
 }
-
 
 //var comparadorDePalabras = comparador();
 
@@ -88,7 +82,6 @@ function actualizarTiempo() {
    function myStop() {
       clearInterval(timeInterval);
    }
-
 } 
 
 function gameOver() {
@@ -106,8 +99,6 @@ function gameOver() {
    document.body.appendChild(btn);
    
 }
-
-
 
 function reiniciar() {
    location.reload();
